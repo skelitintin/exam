@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruleset name="MyCodingStandard">
+    <description>Custom PHPCS</description>
+
+    <!-- Use PSR-12 as the base standard -->
+    <rule ref="PSR12"/>
+
+    <!-- Disable missing file doc comment rule -->
+    <rule ref="Squiz.Commenting.FileComment">
+        <exclude name="Squiz.Commenting.FileComment.Missing"/>
+    </rule>
+
+    <!-- Include all PHP files -->
+    <file>./</file>
+
+    <!-- Exclude common unnecessary directories -->
+    <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>node_modules/*</exclude-pattern>
+</ruleset>
