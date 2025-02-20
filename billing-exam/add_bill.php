@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Calculate total amount (₱5 per unit)
     $total = $units * 5;
 
-    $query = "INSERT INTO customers (name, email, meter_number, address, unit, total, due_date)
+    $query = "INSERT INTO bills (name, email, meter_number, address, unit, total, due_date)
     VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     $sql = $conn->prepare($query);
