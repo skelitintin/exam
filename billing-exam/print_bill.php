@@ -8,7 +8,7 @@ $conn = get_connection();
 if (isset($_GET['id'])) {
     $id = trim($_GET['id']);
 
-    $query = "SELECT * FROM customers WHERE id = {$id}";
+    $query = "SELECT * FROM bills WHERE id = {$id}";
     $result = $conn->query($query);
     $bill = $result->fetch_assoc();
 }

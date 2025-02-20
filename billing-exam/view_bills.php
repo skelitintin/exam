@@ -5,7 +5,7 @@ include "db.php";
 $conn = get_connection();
 
 // Fetch all records
-$query = "SELECT * FROM customers";
+$query = "SELECT * FROM bills";
 $result = $conn->query($query);
 ?>
 

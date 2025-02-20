@@ -11,7 +11,7 @@ if (isset($_GET['id'])) {
         die("Invalid ID");
     }
 
-    $query = "DELETE FROM customers WHERE id = ?";
+    $query = "DELETE FROM bills WHERE id = ?";
     $sql = $conn->prepare($query);
     $sql->bind_param("i", $id);
 
@@ -21,7 +21,7 @@ if (isset($_GET['id'])) {
             exit();
         }
     } catch (mysqli_sql_exception $e) {
-        echo "Error caused by: {$sql->error}";
+        echo "Error: {$sql->error}";
     }
 
     $sql->close();
