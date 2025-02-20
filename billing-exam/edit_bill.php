@@ -8,7 +8,7 @@ $conn = get_connection();
 if (isset($_GET['id'])) {
     $id = trim($_GET['id']);
 
-    $query = "SELECT * FROM customers WHERE id = {$id}";
+    $query = "SELECT * FROM bills WHERE id = {$id}";
     $result = $conn->query($query);
     $bill = $result->fetch_assoc();
 }
@@ -22,14 +22,17 @@ if (!$bill) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars($_POST["name"]);
     $email = htmlspecialchars($_POST["email"]);
+    $meter_number = htmlspecialchars($_POST["meter_number"]);
+    $address = htmlspecialchars($_POST["address"]);
     $units = htmlspecialchars($_POST["units"]);
+    $due_date = htmlspecialchars($_POST["due_date"]);
 
     // Calculate new total amount (₱5 per unit)
     $total = $units * 5;
 
-    $query = "UPDATE customers SET name = ?, email = ?, unit = ?, total = ? WHERE id = ?";
+    $query = "UPDATE bills SET name = ?, email = ?, meter_number = ?, address = ?, unit = ?, total = ?, due_date = ?, WHERE id = ?";
     $sql = $conn->prepare($query);
-    $sql->bind_param("ssidi", $name, $email, $unit, $total, $id);
+    $sql->bind_param("ssisidsi", $name, $email, $meter_number, $address, $unit, $total, $due_date, $id);
 
     try {
         if ($sql->execute()) {
@@ -37,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         }
     } catch (mysqli_sql_exception $e) {
-        echo "Error Caused: {$sql->error}";
+        echo "Error: {$sql->error}";
     }
 
     $sql->close();
@@ -63,6 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <label>Email:</label>
             <input type="email" name="email" value="<?= htmlspecialchars($bill["email"]) ?>" required>
+
+            <!--Add the Missing Inputs for the EDIT here-->
 
             <label>Units Consumed:</label>
             <input type="number" name="units" value="<?= htmlspecialchars($bill["units"]) ?>" required>
